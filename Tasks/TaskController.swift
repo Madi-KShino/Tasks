@@ -31,6 +31,11 @@ class TaskController {
         saveToPersistentStore()
     }
     
+    
+    func toggleIsCompleteFor(task:Task) {
+        
+    }
+    
     //MARK: - PERSISTENCE
     func saveToPersistentStore() {
         

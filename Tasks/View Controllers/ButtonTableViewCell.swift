@@ -8,6 +8,11 @@
 
 import UIKit
 
+//MARK: - PROTOCOLS
+protocol ButtonTableViewCellDelegate: class {
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
+}
+
 class ButtonTableViewCell: UITableViewCell {
 
     //MARK: - IBOUTLETS
@@ -16,7 +21,11 @@ class ButtonTableViewCell: UITableViewCell {
     
     //MARK: - IBACTIONS
     @IBAction func buttonTapped(_ sender: Any) {
+        cellDelegate?.buttonCellButtonTapped(self)
     }
+    
+    //DELEGATE PROPERTY
+    weak var cellDelegate: ButtonTableViewCellDelegate?
     
     func updateButton(_ isComplete: Bool) {
         switch isComplete {
@@ -28,6 +37,7 @@ class ButtonTableViewCell: UITableViewCell {
     }
 }
 
+//MARK: - EXTENSIONS
 extension ButtonTableViewCell {
     func update(withTask task: Task) {
         

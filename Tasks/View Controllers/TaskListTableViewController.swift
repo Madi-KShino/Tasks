@@ -8,7 +8,11 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
+class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
+
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
+        <#code#>
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +21,6 @@ class TaskListTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-    
     }
     
     // MARK: - TABLE VIEW 
@@ -30,6 +33,7 @@ class TaskListTableViewController: UITableViewController {
         
         let taskToDisplay = TaskController.sharedInstance.tasks[indexPath.row]
         cell.textLabel?.text = taskToDisplay.name
+//        cell.cellDelegate 
 
         return cell
     }
