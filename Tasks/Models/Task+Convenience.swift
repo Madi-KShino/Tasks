@@ -12,8 +12,8 @@ import CoreData
 extension Task {
     @discardableResult
     convenience init(name: String,
-                     notes: String,
-                     dueDate: Date,
+                     notes: String?,
+                     dueDate: Date?,
                      context: NSManagedObjectContext = CoreDataStack.managedObjectContext) {
         self.init(context: context)
         self.name = name

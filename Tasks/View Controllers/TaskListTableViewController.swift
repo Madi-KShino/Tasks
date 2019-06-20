@@ -7,19 +7,27 @@
 //
 
 import UIKit
+import CoreData
 
 class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
 
-    func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
-        <#code#>
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
+    //MARK: - PROTOCOL FUNC
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        let task = TaskController.sharedInstance.tasks[indexPath.row]
+        TaskController.sharedInstance.toggleIsCompleteFor(task: task)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
         tableView.reloadData()
     }
     
@@ -29,16 +37,15 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
         
         let taskToDisplay = TaskController.sharedInstance.tasks[indexPath.row]
-        cell.textLabel?.text = taskToDisplay.name
-//        cell.cellDelegate 
+        cell.update(withTask: taskToDisplay)
+        cell.cellDelegate = self
 
         return cell
     }
     
-    //MARK: - DELETE CELLS
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
@@ -51,10 +58,28 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
     
     // MARK: - SEGUE
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toTaskDetailTVC", let indexPath = tableView.indexPathForSelectedRow {
-            let destinationTVC = segue.destination as? TaskDetailTableViewController
+        if segue.identifier == "toTaskDetailTVC" {
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
             let taskToDisplay = TaskController.sharedInstance.tasks[indexPath.row]
+            let destinationTVC = segue.destination as? TaskDetailTableViewController
+            
             destinationTVC?.taskLandingPad = taskToDisplay
+            destinationTVC?.dueDateValue = taskToDisplay.dueDate
         }
     }
 }
+
+//extension TaskListTableViewController: NSFetchedResultsControllerDelegate {
+//    
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        tableView.beginUpdates()
+//    }
+//    
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        tableView.endUpdates()
+//    }
+//    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+//        NSFetchedResultsChangeType
+//    }
+//}

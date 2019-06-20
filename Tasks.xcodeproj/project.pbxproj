@@ -70,9 +70,9 @@
 			children = (
 				53FAA7C522BADB49002A67C9 /* Views */,
 				53FAA7C622BAE56E002A67C9 /* Models */,
+				53FAA7D822BB2456002A67C9 /* Model Controllers */,
 				53FAA7CB22BAE833002A67C9 /* View Controllers */,
 				53FAA7C422BADB3A002A67C9 /* Resources */,
-				53FAA7D222BAEE8C002A67C9 /* TaskController.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -112,9 +112,25 @@
 				53FAA7C722BAE6E0002A67C9 /* TaskListTableViewController.swift */,
 				53FAA7C922BAE80E002A67C9 /* TaskDetailTableViewController.swift */,
 				53FAA7D422BB01B0002A67C9 /* DateHelpers.swift */,
-				53FAA7D622BB0DB3002A67C9 /* ButtonTableViewCell.swift */,
+				53FAA7D922BB2476002A67C9 /* Custom View */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		53FAA7D822BB2456002A67C9 /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				53FAA7D222BAEE8C002A67C9 /* TaskController.swift */,
+			);
+			path = "Model Controllers";
+			sourceTree = "<group>";
+		};
+		53FAA7D922BB2476002A67C9 /* Custom View */ = {
+			isa = PBXGroup;
+			children = (
+				53FAA7D622BB0DB3002A67C9 /* ButtonTableViewCell.swift */,
+			);
+			path = "Custom View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

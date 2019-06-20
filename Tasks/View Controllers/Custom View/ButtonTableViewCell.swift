@@ -8,10 +8,7 @@
 
 import UIKit
 
-//MARK: - PROTOCOLS
-protocol ButtonTableViewCellDelegate: class {
-    func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
-}
+
 
 class ButtonTableViewCell: UITableViewCell {
 
@@ -40,6 +37,12 @@ class ButtonTableViewCell: UITableViewCell {
 //MARK: - EXTENSIONS
 extension ButtonTableViewCell {
     func update(withTask task: Task) {
-        
+        primaryLabel.text = task.name
+        updateButton(task.isComplete)
     }
+}
+
+//MARK: - PROTOCOLS
+protocol ButtonTableViewCellDelegate: class {
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
 }

@@ -18,25 +18,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="76" id="taa-VQ-Dtv" customClass="ButtonTableViewCell" customModule="Tasks" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="76"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="taa-VQ-Dtv" customClass="ButtonTableViewCell" customModule="Tasks" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="taa-VQ-Dtv" id="zah-Pr-5S6">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="75.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Vqx-ri-sEH">
-                                            <rect key="frame" x="10" y="8" width="394" height="59.5"/>
+                                            <rect key="frame" x="10" y="7" width="394" height="30"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Z2-A6-iAz">
-                                                    <rect key="frame" x="0.0" y="0.0" width="326.5" height="59.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="356" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="77B-xx-RWX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3sY-m9-FWc">
-                                                    <rect key="frame" x="334.5" y="0.0" width="59.5" height="59.5"/>
+                                                    <rect key="frame" x="364" y="0.0" width="30" height="30"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="Ixw-EI-FU1"/>
                                                         <constraint firstAttribute="width" secondItem="3sY-m9-FWc" secondAttribute="height" multiplier="1:1" id="RuN-XN-8qi"/>
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="-2" minY="-2" maxX="-2" maxY="-2"/>
@@ -46,13 +50,15 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="lep-iT-ip4"/>
+                                            </constraints>
                                         </stackView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="Vqx-ri-sEH" secondAttribute="trailing" constant="10" id="WcU-3j-cqc"/>
-                                        <constraint firstItem="Vqx-ri-sEH" firstAttribute="top" secondItem="zah-Pr-5S6" secondAttribute="top" constant="8" id="Xvh-c0-SNp"/>
                                         <constraint firstItem="Vqx-ri-sEH" firstAttribute="leading" secondItem="zah-Pr-5S6" secondAttribute="leading" constant="10" id="iqE-BT-bYH"/>
-                                        <constraint firstAttribute="bottom" secondItem="Vqx-ri-sEH" secondAttribute="bottom" constant="8" id="pcC-2R-PxM"/>
+                                        <constraint firstItem="Vqx-ri-sEH" firstAttribute="centerY" secondItem="zah-Pr-5S6" secondAttribute="centerY" id="sqn-57-APi"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -103,7 +109,7 @@
                                                         <constraint firstAttribute="height" constant="35" id="h3q-3F-L0i"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -122,25 +128,24 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="35" id="tGz-FM-ZtJ">
                                         <rect key="frame" x="0.0" y="146.5" width="414" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tGz-FM-ZtJ" id="9Zn-uo-Cdi">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tGz-FM-ZtJ" id="9Zn-uo-Cdi">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="34.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date To Complete Task By..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3lj-1f-AvT">
-                                                    <rect key="frame" x="10" y="0.0" width="394" height="35"/>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date To Complete Task By..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3lj-1f-AvT">
+                                                    <rect key="frame" x="10" y="-0.5" width="394" height="35.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="35" id="hKP-iw-fAa"/>
                                                     </constraints>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="3lj-1f-AvT" secondAttribute="trailing" constant="10" id="1cX-ao-iuJ"/>
-                                                <constraint firstItem="3lj-1f-AvT" firstAttribute="top" secondItem="9Zn-uo-Cdi" secondAttribute="topMargin" id="MHE-jg-rHN"/>
-                                                <constraint firstItem="3lj-1f-AvT" firstAttribute="leading" secondItem="9Zn-uo-Cdi" secondAttribute="leadingMargin" constant="10" id="dzo-rd-7U9"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="3lj-1f-AvT" secondAttribute="bottom" id="zFQ-LI-rQ6"/>
+                                                <constraint firstItem="3lj-1f-AvT" firstAttribute="centerY" secondItem="9Zn-uo-Cdi" secondAttribute="centerY" id="IgB-s1-QyZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="3lj-1f-AvT" secondAttribute="trailing" constant="10" id="MxG-L3-hpU"/>
+                                                <constraint firstItem="3lj-1f-AvT" firstAttribute="leading" secondItem="9Zn-uo-Cdi" secondAttribute="leading" constant="10" id="kXU-fd-j0W"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -158,7 +163,7 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tyo-rF-A2N">
                                                     <rect key="frame" x="10" y="0.0" width="394" height="299.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
                                             </subviews>
@@ -225,6 +230,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JUL-rV-cCf">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="Bko-Te-Dyi" kind="relationship" relationship="rootViewController" id="aDO-Tx-ait"/>
@@ -241,4 +249,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="qn8-Mk-Baq"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

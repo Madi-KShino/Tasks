@@ -10,16 +10,18 @@ import UIKit
 
 class TaskDetailTableViewController: UITableViewController {
     
-    
-    var taskLandingPad: Task?
     var dueDateValue: Date?
+    var taskLandingPad: Task? {
+        didSet {
+            updateView()
+        }
+    }
     
     //MARK: - IBOUTLETS
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var dueTextField: UITextField!
     @IBOutlet weak var notesTextField: UITextView!
     @IBOutlet var dueDatePicker: UIDatePicker!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +30,6 @@ class TaskDetailTableViewController: UITableViewController {
     }
     
     //MARK: - IBACTIONS
-    @IBAction func cancelButtonTapped(_ sender: Any) {
-        nameTextField.text = ""
-        notesTextField.text = ""
-        dueTextField.text = ""
-    }
-    
     @IBAction func saveButtonTapped(_ sender: Any) {
         guard let name = nameTextField.text, name != ""
             else { return }
@@ -42,6 +38,13 @@ class TaskDetailTableViewController: UITableViewController {
         } else {
             TaskController.sharedInstance.addTaskWith(newName: name, note: notesTextField.text, due: dueDateValue)
         }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: Any) {
+        nameTextField.text = ""
+        notesTextField.text = ""
+        dueTextField.text = ""
         navigationController?.popViewController(animated: true)
     }
     
@@ -57,7 +60,7 @@ class TaskDetailTableViewController: UITableViewController {
         notesTextField.resignFirstResponder()
     }
     
-    //MARK: - UPDATE VIEW
+    //MARK: - PRIVATE FUNCTIONS
     private func updateView() {
         guard let existingTask = taskLandingPad else { return }
         nameTextField.text = existingTask.name

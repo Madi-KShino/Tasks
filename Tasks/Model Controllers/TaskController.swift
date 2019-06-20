@@ -17,36 +17,41 @@ class TaskController {
     
     //MARK: - EDITING FUNCTIONS
     func addTaskWith(newName: String, note: String?, due: Date?) {
-//        Task(name: newName, notes: note, dueDate: due)
+        Task(name: newName, notes: note, dueDate: due)
         saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
     func updateExisting(task: Task, name: String, note: String?, due: Date?) {
-        
+        task.name = name
+        task.notes = note
+        task.dueDate = due
         saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
     func remove(taskToRemove: Task) {
-        
+        taskToRemove.managedObjectContext?.delete(taskToRemove)
         saveToPersistentStore()
+        tasks = fetchTasks()
     }
     
-    
     func toggleIsCompleteFor(task:Task) {
-        
+        task.isComplete = !task.isComplete
+        saveToPersistentStore()
     }
     
     //MARK: - PERSISTENCE
     func saveToPersistentStore() {
-        
+        do {
+            try CoreDataStack.managedObjectContext.save()
+        } catch {
+            print("Error saving Manage Object Context")
+        }
     }
     
-//    func fetchTask() -> [Task] {
-//
-//
-//    }
-    
-
-    
-    
+    private func fetchTasks() -> [Task] {
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        return (try? CoreDataStack.managedObjectContext.fetch(request)) ?? []
+    }
 }
