@@ -12,13 +12,13 @@
         <!--Tasks-->
         <scene sceneID="Lha-vH-EnK">
             <objects>
-                <tableViewController id="Bko-Te-Dyi" sceneMemberID="viewController">
+                <tableViewController id="Bko-Te-Dyi" customClass="TaskListTableViewController" customModule="Tasks" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="JwQ-Ay-Tbd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="76" id="taa-VQ-Dtv">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" rowHeight="76" id="taa-VQ-Dtv" customClass="ButtonTableViewCell" customModule="Tasks" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="taa-VQ-Dtv" id="zah-Pr-5S6">
@@ -41,6 +41,9 @@
                                                     </constraints>
                                                     <inset key="imageEdgeInsets" minX="-2" minY="-2" maxX="-2" maxY="-2"/>
                                                     <state key="normal" image="unchecked"/>
+                                                    <connections>
+                                                        <action selector="buttonTapped:" destination="taa-VQ-Dtv" eventType="touchUpInside" id="7Yh-Bh-OPh"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -53,7 +56,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="sXk-Wf-fxG" kind="show" id="qn8-Mk-Baq"/>
+                                    <outlet property="completeButton" destination="3sY-m9-FWc" id="Cd2-jK-4Ri"/>
+                                    <outlet property="primaryLabel" destination="1Z2-A6-iAz" id="yGc-ZW-YPX"/>
+                                    <segue destination="sXk-Wf-fxG" kind="show" identifier="toTaskDetailTVC" id="qn8-Mk-Baq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -63,7 +68,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Tasks" id="ucl-GB-aNW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cld-bG-pqU"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cld-bG-pqU">
+                            <connections>
+                                <segue destination="sXk-Wf-fxG" kind="show" id="4Jd-kh-FNC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OFo-Iw-LkC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -73,7 +82,7 @@
         <!--Title-->
         <scene sceneID="iGU-nD-JXp">
             <objects>
-                <tableViewController id="sXk-Wf-fxG" sceneMemberID="viewController">
+                <tableViewController id="sXk-Wf-fxG" customClass="TaskDetailTableViewController" customModule="Tasks" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6XX-Sr-92J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -110,25 +119,28 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Due" id="GVN-W5-bUK">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="150" id="tGz-FM-ZtJ">
-                                        <rect key="frame" x="0.0" y="146.5" width="414" height="150"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="35" id="tGz-FM-ZtJ">
+                                        <rect key="frame" x="0.0" y="146.5" width="414" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tGz-FM-ZtJ" id="9Zn-uo-Cdi">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="149.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tGz-FM-ZtJ" id="9Zn-uo-Cdi">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="34.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MpE-gf-L7D">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="582671756.23298895">
-                                                        <!--2019-06-19 21:15:56 +0000-->
-                                                    </date>
-                                                </datePicker>
+                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date To Complete Task By..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3lj-1f-AvT">
+                                                    <rect key="frame" x="10" y="0.0" width="394" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="hKP-iw-fAa"/>
+                                                    </constraints>
+                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="MpE-gf-L7D" firstAttribute="top" secondItem="9Zn-uo-Cdi" secondAttribute="top" id="8vf-GD-iNd"/>
-                                                <constraint firstAttribute="bottom" secondItem="MpE-gf-L7D" secondAttribute="bottom" id="INb-4P-oPw"/>
-                                                <constraint firstItem="MpE-gf-L7D" firstAttribute="leading" secondItem="9Zn-uo-Cdi" secondAttribute="leading" id="ZMs-JG-5E5"/>
-                                                <constraint firstAttribute="trailing" secondItem="MpE-gf-L7D" secondAttribute="trailing" id="sBY-Zn-0yJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="3lj-1f-AvT" secondAttribute="trailing" constant="10" id="1cX-ao-iuJ"/>
+                                                <constraint firstItem="3lj-1f-AvT" firstAttribute="top" secondItem="9Zn-uo-Cdi" secondAttribute="topMargin" id="MHE-jg-rHN"/>
+                                                <constraint firstItem="3lj-1f-AvT" firstAttribute="leading" secondItem="9Zn-uo-Cdi" secondAttribute="leadingMargin" constant="10" id="dzo-rd-7U9"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="3lj-1f-AvT" secondAttribute="bottom" id="zFQ-LI-rQ6"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -137,7 +149,7 @@
                             <tableViewSection headerTitle="Notes" id="tdt-eE-hle">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="300" id="cGP-55-99r">
-                                        <rect key="frame" x="0.0" y="352.5" width="414" height="300"/>
+                                        <rect key="frame" x="0.0" y="237.5" width="414" height="300"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cGP-55-99r" id="kkI-xw-VBE">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="299.5"/>
@@ -168,12 +180,41 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="s1g-Cn-V5N">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="save" id="MK1-3s-cLU"/>
-                            <barButtonItem systemItem="cancel" id="tz1-NZ-Fgv"/>
+                            <barButtonItem systemItem="save" id="MK1-3s-cLU">
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="sXk-Wf-fxG" id="74z-eU-miz"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="cancel" id="tz1-NZ-Fgv">
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="sXk-Wf-fxG" id="Y42-zp-zte"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dueDatePicker" destination="QYt-10-xrC" id="QmS-Xf-gsD"/>
+                        <outlet property="dueTextField" destination="3lj-1f-AvT" id="VOB-rT-XWb"/>
+                        <outlet property="nameTextField" destination="Y47-E2-fOK" id="499-hM-rYj"/>
+                        <outlet property="notesTextField" destination="tyo-rF-A2N" id="rOG-Uw-LvI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Lt-Il-WkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Ozc-Wi-OHf">
+                    <connections>
+                        <action selector="userTappedView:" destination="sXk-Wf-fxG" id="oQh-HB-cgv"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="QYt-10-xrC">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="162"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <date key="date" timeIntervalSinceReferenceDate="582681844.80594099">
+                        <!--2019-06-20 00:04:04 +0000-->
+                    </date>
+                    <connections>
+                        <action selector="datePickerValueChanged:" destination="sXk-Wf-fxG" eventType="valueChanged" id="raB-xx-h4W"/>
+                    </connections>
+                </datePicker>
             </objects>
             <point key="canvasLocation" x="1008.6956521739131" y="172.76785714285714"/>
         </scene>
@@ -197,4 +238,7 @@
     <resources>
         <image name="unchecked" width="50" height="50"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="qn8-Mk-Baq"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -12,6 +12,13 @@
 		53FAA7B822BADA81002A67C9 /* Tasks.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7B622BADA81002A67C9 /* Tasks.xcdatamodeld */; };
 		53FAA7BA22BADA82002A67C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53FAA7B922BADA82002A67C9 /* Assets.xcassets */; };
 		53FAA7BD22BADA82002A67C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53FAA7BB22BADA82002A67C9 /* LaunchScreen.storyboard */; };
+		53FAA7C822BAE6E0002A67C9 /* TaskListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7C722BAE6E0002A67C9 /* TaskListTableViewController.swift */; };
+		53FAA7CA22BAE80E002A67C9 /* TaskDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7C922BAE80E002A67C9 /* TaskDetailTableViewController.swift */; };
+		53FAA7CF22BAE98E002A67C9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7CE22BAE98E002A67C9 /* CoreDataStack.swift */; };
+		53FAA7D122BAEB5E002A67C9 /* Task+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7D022BAEB5E002A67C9 /* Task+Convenience.swift */; };
+		53FAA7D322BAEE8C002A67C9 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7D222BAEE8C002A67C9 /* TaskController.swift */; };
+		53FAA7D522BB01B0002A67C9 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7D422BB01B0002A67C9 /* DateHelpers.swift */; };
+		53FAA7D722BB0DB3002A67C9 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FAA7D622BB0DB3002A67C9 /* ButtonTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		53FAA7B922BADA82002A67C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53FAA7BC22BADA82002A67C9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53FAA7BE22BADA82002A67C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53FAA7C722BAE6E0002A67C9 /* TaskListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListTableViewController.swift; sourceTree = "<group>"; };
+		53FAA7C922BAE80E002A67C9 /* TaskDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailTableViewController.swift; sourceTree = "<group>"; };
+		53FAA7CE22BAE98E002A67C9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		53FAA7D022BAEB5E002A67C9 /* Task+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Convenience.swift"; sourceTree = "<group>"; };
+		53FAA7D222BAEE8C002A67C9 /* TaskController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
+		53FAA7D422BB01B0002A67C9 /* DateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
+		53FAA7D622BB0DB3002A67C9 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +70,9 @@
 			children = (
 				53FAA7C522BADB49002A67C9 /* Views */,
 				53FAA7C622BAE56E002A67C9 /* Models */,
+				53FAA7CB22BAE833002A67C9 /* View Controllers */,
 				53FAA7C422BADB3A002A67C9 /* Resources */,
+				53FAA7D222BAEE8C002A67C9 /* TaskController.swift */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -84,8 +100,21 @@
 			isa = PBXGroup;
 			children = (
 				53FAA7B622BADA81002A67C9 /* Tasks.xcdatamodeld */,
+				53FAA7CE22BAE98E002A67C9 /* CoreDataStack.swift */,
+				53FAA7D022BAEB5E002A67C9 /* Task+Convenience.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		53FAA7CB22BAE833002A67C9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				53FAA7C722BAE6E0002A67C9 /* TaskListTableViewController.swift */,
+				53FAA7C922BAE80E002A67C9 /* TaskDetailTableViewController.swift */,
+				53FAA7D422BB01B0002A67C9 /* DateHelpers.swift */,
+				53FAA7D622BB0DB3002A67C9 /* ButtonTableViewCell.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -159,8 +188,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53FAA7D722BB0DB3002A67C9 /* ButtonTableViewCell.swift in Sources */,
+				53FAA7D322BAEE8C002A67C9 /* TaskController.swift in Sources */,
+				53FAA7CF22BAE98E002A67C9 /* CoreDataStack.swift in Sources */,
+				53FAA7C822BAE6E0002A67C9 /* TaskListTableViewController.swift in Sources */,
+				53FAA7D122BAEB5E002A67C9 /* Task+Convenience.swift in Sources */,
 				53FAA7B022BADA81002A67C9 /* AppDelegate.swift in Sources */,
+				53FAA7D522BB01B0002A67C9 /* DateHelpers.swift in Sources */,
 				53FAA7B822BADA81002A67C9 /* Tasks.xcdatamodeld in Sources */,
+				53FAA7CA22BAE80E002A67C9 /* TaskDetailTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -307,7 +343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Tasks/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -324,7 +360,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "$(SRCROOT)/Resources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Tasks/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
