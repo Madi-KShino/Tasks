@@ -13,13 +13,12 @@ class TaskController {
     
     //MARK: - SINGLETON & SOURCE OF TRUTH
     static let sharedInstance = TaskController()
-    var tasks: [Task] = []
+//    var tasks: [Task] = []
     
     //MARK: - EDITING FUNCTIONS
     func addTaskWith(newName: String, note: String?, due: Date?) {
         Task(name: newName, notes: note, dueDate: due)
         saveToPersistentStore()
-        tasks = fetchTasks()
     }
     
     func updateExisting(task: Task, name: String, note: String?, due: Date?) {
@@ -27,13 +26,11 @@ class TaskController {
         task.notes = note
         task.dueDate = due
         saveToPersistentStore()
-        tasks = fetchTasks()
     }
     
     func remove(taskToRemove: Task) {
         taskToRemove.managedObjectContext?.delete(taskToRemove)
         saveToPersistentStore()
-        tasks = fetchTasks()
     }
     
     func toggleIsCompleteFor(task:Task) {
@@ -43,15 +40,32 @@ class TaskController {
     
     //MARK: - PERSISTENCE
     func saveToPersistentStore() {
+        let managedOC = CoreDataStack.managedObjectContext
         do {
-            try CoreDataStack.managedObjectContext.save()
+            try managedOC.save()
         } catch {
             print("Error saving Manage Object Context")
         }
     }
+
+    //MARK: - FETCH
+    var fetchedResultsController: NSFetchedResultsController<Task>
     
-    private func fetchTasks() -> [Task] {
+    init() {
         let request: NSFetchRequest<Task> = Task.fetchRequest()
-        return (try? CoreDataStack.managedObjectContext.fetch(request)) ?? []
+        
+        let primarySort = NSSortDescriptor(key: "isComplete", ascending: false)
+        let secondarySort = NSSortDescriptor(key: "dueDate", ascending: true)
+        request.sortDescriptors = [primarySort, secondarySort]
+        
+        let resultsController: NSFetchedResultsController<Task> = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.managedObjectContext, sectionNameKeyPath: "isComplete", cacheName: nil)
+        
+        fetchedResultsController = resultsController
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error performing the fetch request")
+        }
     }
 }
