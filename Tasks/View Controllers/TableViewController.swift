@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 
-class TableViewController: UITableViewController, ButtonTableViewCellDelegate, NSFetchedResultsControllerDelegate {
-   
+class TableViewController: UITableViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         TaskController.sharedInstance.fetchedResultsController.delegate = self
@@ -20,76 +20,77 @@ class TableViewController: UITableViewController, ButtonTableViewCellDelegate, N
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-
+    
     // MARK: - TABLE VIEW DATA
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return TaskController.sharedInstance.fetchedResultsController.sections?.count ?? 1
+        return TaskController.sharedInstance.fetchedResultsController.sections?.count ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TaskController.sharedInstance.fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as? ButtonTableViewCell,
-            let task = TaskController.sharedInstance.fetchedResultsController.fetchedObjects?[indexPath.row]
-            else { return UITableViewCell()}
-        cell.textLabel?.text = task.name
-        cell.cellDelegate = self
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as? ButtonTableViewCell else { return UITableViewCell() }
+        let task = TaskController.sharedInstance.fetchedResultsController.object(at: indexPath)
         cell.update(withTask: task)
+        cell.cellDelegate = self
         return cell
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionIndex = Int(TaskController.sharedInstance.fetchedResultsController.sections?[section].name ?? "zero")
         if sectionIndex == 0 {
-            return "Tasks To Complete"
+            return "To Do"
         } else {
-            return "Completed Tasks"
+            return "Completed"
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
- 
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let targetTask = TaskController.sharedInstance.fetchedResultsController.fetchedObjects?[indexPath.row]
-                else { return }
-           TaskController.sharedInstance.remove(taskToRemove: targetTask)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let targetTask = TaskController.sharedInstance.fetchedResultsController.object(at: indexPath)
+            TaskController.sharedInstance.remove(taskToRemove: targetTask)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-
+    
     // MARK: - SEGUE
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toTaskDetailTVC" {
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            guard let taskToDisplay = TaskController.sharedInstance.fetchedResultsController.fetchedObjects?[indexPath.row]
-                else { return }
-            let destinationTVC = segue.destination as? TaskDetailTableViewController
-            destinationTVC?.taskLandingPad = taskToDisplay
-            destinationTVC?.dueDateValue = taskToDisplay.dueDate
+            if let indexPath = tableView.indexPathForSelectedRow {
+                if let destinationTVC = segue.destination as? TaskDetailTableViewController {
+                    let taskToDisplay = TaskController.sharedInstance.fetchedResultsController.object(at: indexPath)
+                    destinationTVC.taskLandingPad = taskToDisplay
+                    destinationTVC.dueDateValue = taskToDisplay.dueDate
+                }
+            }
         }
     }
-    
-    //MARK: - PROTOCOL CONFORMATION
-    
+}
+//MARK: - PROTOCOL CONFORMATION
+
+extension TableViewController: ButtonTableViewCellDelegate {
     func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
         guard let indexPath = tableView.indexPath(for: sender) else { return }
-        guard let task = TaskController.sharedInstance.fetchedResultsController.fetchedObjects?[indexPath.row] else { return }
+        let task = TaskController.sharedInstance.fetchedResultsController.object(at: indexPath)
         TaskController.sharedInstance.toggleIsCompleteFor(task: task)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
-        tableView.reloadData()
+        sender.update(withTask: task)
     }
-    
+}
+
+extension TableViewController: NSFetchedResultsControllerDelegate {
+
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         switch type {
         case .delete:
@@ -108,7 +109,7 @@ class TableViewController: UITableViewController, ButtonTableViewCellDelegate, N
             fatalError()
         }
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch (type) {
         case NSFetchedResultsChangeType.insert:
@@ -119,9 +120,8 @@ class TableViewController: UITableViewController, ButtonTableViewCellDelegate, N
             return
         }
     }
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
 }
-

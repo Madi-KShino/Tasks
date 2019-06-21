@@ -13,7 +13,25 @@ class TaskController {
     
     //MARK: - SINGLETON & SOURCE OF TRUTH
     static let sharedInstance = TaskController()
-//    var tasks: [Task] = []
+    
+    //MARK: - FETCH
+    var fetchedResultsController: NSFetchedResultsController<Task>
+    
+    init() {
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "isComplete", ascending: true), NSSortDescriptor(key: "dueDate", ascending: false)]
+        
+        let resultsController: NSFetchedResultsController<Task> = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.managedObjectContext, sectionNameKeyPath: "isComplete", cacheName: nil)
+        
+        fetchedResultsController = resultsController
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error performing the fetch request")
+        }
+    }
     
     //MARK: - EDITING FUNCTIONS
     func addTaskWith(newName: String, note: String?, due: Date?) {
@@ -29,7 +47,7 @@ class TaskController {
     }
     
     func remove(taskToRemove: Task) {
-        taskToRemove.managedObjectContext?.delete(taskToRemove)
+        CoreDataStack.managedObjectContext.delete(taskToRemove)
         saveToPersistentStore()
     }
     
@@ -40,32 +58,10 @@ class TaskController {
     
     //MARK: - PERSISTENCE
     func saveToPersistentStore() {
-        let managedOC = CoreDataStack.managedObjectContext
         do {
-            try managedOC.save()
+            try CoreDataStack.managedObjectContext.save()
         } catch {
             print("Error saving Manage Object Context")
-        }
-    }
-
-    //MARK: - FETCH
-    var fetchedResultsController: NSFetchedResultsController<Task>
-    
-    init() {
-        let request: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        let primarySort = NSSortDescriptor(key: "isComplete", ascending: false)
-        let secondarySort = NSSortDescriptor(key: "dueDate", ascending: true)
-        request.sortDescriptors = [primarySort, secondarySort]
-        
-        let resultsController: NSFetchedResultsController<Task> = NSFetchedResultsController(fetchRequest: request, managedObjectContext: CoreDataStack.managedObjectContext, sectionNameKeyPath: "isComplete", cacheName: nil)
-        
-        fetchedResultsController = resultsController
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            print("Error performing the fetch request")
         }
     }
 }

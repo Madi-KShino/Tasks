@@ -10,13 +10,6 @@ import UIKit
 
 class TaskDetailTableViewController: UITableViewController {
     
-    var dueDateValue: Date?
-    var taskLandingPad: Task? {
-        didSet {
-            updateView()
-        }
-    }
-    
     //MARK: - IBOUTLETS
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var dueTextField: UITextField!
@@ -26,7 +19,19 @@ class TaskDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dueTextField.inputView = dueDatePicker
-        updateView()
+        updateViews()
+    }
+    
+    var dueDateValue: Date?
+    
+    var taskLandingPad: Task?
+    
+    private func updateViews() {
+        guard let task = taskLandingPad, isViewLoaded else { return }
+        title = task.name
+        nameTextField.text = task.name
+        dueTextField.text = (task.dueDate as Date?)?.stringValue()
+        notesTextField.text = task.notes
     }
     
     //MARK: - IBACTIONS
@@ -56,15 +61,6 @@ class TaskDetailTableViewController: UITableViewController {
     @IBAction func userTappedView(_ sender: Any) {
         nameTextField.resignFirstResponder()
         dueTextField.resignFirstResponder()
-        dueDatePicker.resignFirstResponder()
         notesTextField.resignFirstResponder()
-    }
-    
-    //MARK: - PRIVATE FUNCTIONS
-    private func updateView() {
-        guard let existingTask = taskLandingPad else { return }
-        nameTextField.text = existingTask.name
-        dueTextField.text = existingTask.dueDate?.stringValue()
-        notesTextField.text = existingTask.notes
     }
 }

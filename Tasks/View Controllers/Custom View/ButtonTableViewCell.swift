@@ -8,7 +8,10 @@
 
 import UIKit
 
-
+//MARK: - PROTOCOLS
+protocol ButtonTableViewCellDelegate: class {
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
+}
 
 class ButtonTableViewCell: UITableViewCell {
 
@@ -26,23 +29,16 @@ class ButtonTableViewCell: UITableViewCell {
     
     func updateButton(_ isComplete: Bool) {
         switch isComplete {
-        case true:
-            completeButton.setImage(UIImage(named: "checked"), for: .normal)
         case false:
             completeButton.setImage(UIImage(named: "unchecked"), for: .normal)
+        case true:
+            completeButton.setImage(UIImage(named: "checked"), for: .normal)
         }
     }
-}
-
-//MARK: - EXTENSIONS
-extension ButtonTableViewCell {
+    
     func update(withTask task: Task) {
         primaryLabel.text = task.name
         updateButton(task.isComplete)
     }
 }
 
-//MARK: - PROTOCOLS
-protocol ButtonTableViewCellDelegate: class {
-    func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
-}
